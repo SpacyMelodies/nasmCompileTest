@@ -8,11 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="anotherProgram.asm" />
     <None Remove="build.bat" />
     <None Remove="helloworld.asm" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="anotherProgram.asm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="build.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
