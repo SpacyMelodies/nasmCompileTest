@@ -2,7 +2,7 @@ bits 64
 default rel
 
 section .data
-    msg: db "god did this work", 10
+    msg: db "hello I'm Mikey", 0 ;10 = new line 0 = 0 terminated
 
 section .text
     global main
@@ -12,23 +12,20 @@ section .text
     extern ExitProcess
     
 main:
-    push rbp                    ; Prologue
-    mov rbp, rsp
 
+    push 0
     mov rcx, -11                ; STD_OUTPUT_HANDLE
     call GetStdHandle
-
-    push 0                      ; lpReserved
     mov r9, 0                   ; charsWritten
     mov r8, 17                  ; toWrite
     mov rdx, msg                ; message
     mov rcx, rax                ; handle
     call WriteConsoleA
 
-    xor rax, rax                ; Epilogue
-    mov rsp, rbp                
-    pop rbp
+    xor rax, 0               ; Epilogue
+
+
     
     mov rcx, 0
-  
+    call ExitProcess
     ret

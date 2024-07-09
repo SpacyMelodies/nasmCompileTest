@@ -11,6 +11,8 @@ internal class Program
         processStartInfo.Arguments = "/C build.bat";
         p.StartInfo = processStartInfo;
         p.Start();
+        p.WaitForExit();
+
         
         Process z = new Process();
         z.StartInfo.FileName = "hello.exe";
