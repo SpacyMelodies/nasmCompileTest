@@ -17,5 +17,7 @@ internal class Program
         Process z = new Process();
         z.StartInfo.FileName = "hell.exe";
        z.Start();
+
+        Console.WriteLine();
     }
 }
