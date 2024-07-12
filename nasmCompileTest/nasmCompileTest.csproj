@@ -11,6 +11,8 @@
     <None Remove="anotherProgram.asm" />
     <None Remove="build.bat" />
     <None Remove="helloworld.asm" />
+    <None Remove="libucrt.lib" />
+    <None Remove="msvcrt.lib" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +23,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="helloworld.asm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libucrt.lib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="msvcrt.lib">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
