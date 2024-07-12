@@ -1,31 +1,50 @@
 bits 64
 default rel
 
-section .data
-    msg db "Hello world!", 0xd, 0xa, 0
-    msg_start db "Starting program...", 0xd, 0xa, 0
-    msg_end db "End of program...", 0xd, 0xa, 0
+segment .bss
+myNum3 resq 1
 
-section .text
+segment .data
+    msg db "Hello world!", 0
+    msg11 db "enter your nummber: ", 0
+    format db "%d", 0
+    myNum dq 110
+    myNum2 dq 111
+    crlf db "", 0xd, 0ax, 0
+
+segment .text
 global main
 extern ExitProcess
+extern scanf
 extern printf
 
 main:
-    ; Prologue
     push    rbp
     mov     rbp, rsp
     sub     rsp, 32
 
-    ; Call printf
     lea     rcx, [msg]
     call    printf
+    lea rcx, [crlf]
+    call printf
+    lea rcx, [msg11]
+    call printf
+    lea rcx, format
+    lea rdx, myNum3
+    call scanf
 
-    ; Call ExitProcess
-    xor     rax, rax
-    call    ExitProcess
+    mov rax, [myNum]
+    add rax, [myNum2]
+    add rax, [myNum3]
+    mov [myNum3], rax
+    xor rax, rax
 
-    ; Epilogue
-    mov     rsp, rbp
-    pop     rbp
+    lea rcx, format
+    mov rdx, [myNum3]
+    call printf
+    xor rcx,rcx
+    xor rdx, rdx
+
+   call ExitProcess
     ret
+
