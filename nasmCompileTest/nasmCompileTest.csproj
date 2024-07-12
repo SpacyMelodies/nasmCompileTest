@@ -8,22 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="anotherProgram.asm" />
     <None Remove="build.bat" />
-    <None Remove="helloworld.asm" />
+    <None Remove="FibSequence.asm" />
     <None Remove="legacy_stdio_definitions.lib" />
     <None Remove="libucrt.lib" />
     <None Remove="msvcrt.lib" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="anotherProgram.asm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="build.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="helloworld.asm">
+    <Content Include="FibSequence.asm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="legacy_stdio_definitions.lib">
