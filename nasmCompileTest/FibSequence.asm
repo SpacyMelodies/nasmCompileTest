@@ -9,7 +9,7 @@ section .bss
 
 section .data
     msg db "How many Fibonacci numbers: ", 0
-    format db "%d", 0
+    format db "%f", 0
     crlf db "", 0xd, 0xa, 0  ; new line
 
 section .text
