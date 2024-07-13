@@ -24,13 +24,13 @@ main:
 
 FINAL:
    xor rax, rax
-    xor rcx, rcx
-    xor rdx, rdx
+   xor rcx, rcx
+   xor rdx, rdx
     ; Exit process
     call    ExitProcess
  
     ; Epilogue
-    mov     rsp, rbp
+    mov     rsp, rbp ; free the shadow space
     pop     rbp
     ret
 
