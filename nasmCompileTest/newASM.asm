@@ -21,6 +21,8 @@ main:
     ; Print "How many Fibonacci numbers: "
     lea     rcx, [msg]
     call    printf
+    mov rcx, 8
+    call printf
 
 FINAL:
    xor rax, rax
