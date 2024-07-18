@@ -1,11 +1,13 @@
 bits 64
 default rel
-
 section .bss
-
-section .data
-    msg db "How many Fibonacci numbers: ", 0
-
+nums resq 1
+section .Data
+format db "%d",0xd, 0xa, 0
+formatString db "%s",0
+ msg0 db "Hello, World from my own compiler!", 0xd, 0xa, 0
+hello db "boss", 0xd, 0xa, 0
+drag db "nono", 0xd, 0xa, 0
 section .text
 global main
 extern ExitProcess
@@ -18,21 +20,47 @@ main:
     mov     rbp, rsp
     sub     rsp, 32
 
-    ; Print "How many Fibonacci numbers: "
-    lea     rcx, [msg]
-    call    printf
-    mov rcx, 8
-    call printf
+lea rcx, [format]
+mov rdx, 8
+call printf
+
+
+
+lea rcx, [msg0]
+call printf
+
+
+
+
+lea rcx, [formatString]
+lea rdx, [nums]
+call scanf
+
+
+lea rcx, [hello]
+call printf
+
+
+
+lea rcx, [nums]
+call printf
+
+mov r10, 55
+add r10, [nums]
+mov [nums], r10
+
+lea rcx, [nums]
+call printf
+
 
 FINAL:
    xor rax, rax
-   xor rcx, rcx
-   xor rdx, rdx
+    xor rcx, rcx
+    xor rdx, rdx
     ; Exit process
     call    ExitProcess
  
     ; Epilogue
-    mov     rsp, rbp ; free the shadow space
+    mov     rsp, rbp
     pop     rbp
     ret
-

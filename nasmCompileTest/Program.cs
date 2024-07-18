@@ -15,9 +15,9 @@ internal class Program
 
 
         Process z = new Process();
-        z.StartInfo.FileName = "hell.exe";
+        z.StartInfo.FileName = "newnew11.exe";
        z.Start();
 
-        Console.WriteLine();
+        Console.ReadLine();
     }
 }

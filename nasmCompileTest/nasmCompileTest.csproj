@@ -13,6 +13,7 @@
     <None Remove="legacy_stdio_definitions.lib" />
     <None Remove="libucrt.lib" />
     <None Remove="msvcrt.lib" />
+    <None Remove="newASM.asm" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +30,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="msvcrt.lib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="newASM.asm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
