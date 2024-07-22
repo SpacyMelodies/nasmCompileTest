@@ -2,17 +2,25 @@ bits 64
 default rel
 
 section .bss
-buffer resb 256  ; Buffer for input
+buffer resb 256        ; Buffer for input
+bytesRead resd 1       ; Number of bytes read
+bytesWritten resd 1    ; Number of bytes written
+chars resb 4
 
 section .data
-formatString db "%s", 0  ; Format string for printf
+stdInputHandle dq -12  ; STD_INPUT_HANDLE
+stdOutputHandle dq -11 ; STD_OUTPUT_HANDLE
+
+format db "%s", 0
+
 
 section .text
 global main
 extern ExitProcess
-extern printf
+extern ReadConsoleA
 extern GetStdHandle
-extern ReadConsole
+extern printf
+
 
 main:
     ; Prologue
@@ -20,28 +28,35 @@ main:
     mov     rbp, rsp
     sub     rsp, 32
 
-    ; Get console input handle
-    mov     rdi, -10         ; STD_INPUT_HANDLE
-    call    GetStdHandle
-    mov     rbx, rax         ; Store handle in RBX
+    ; Get handle to the console input
+             ; Save handle to rbx
 
-    ; Read input from console
-    lea     rcx, [buffer]    ; Buffer address
-    mov     rdx, 256         ; Buffer size
-    xor     r8, r8           ; Pointer to number of characters read (NULL)
-    mov     rsi, rbx         ; Console handle
-    call    ReadConsole
+     sub rsp, 40
+        ;get the input handle
+        mov rcx, -10           ;specifies that the input handle is required
+        call GetStdHandle
 
-    ; Print the input string
-    xor     rax, rax
-    lea     rcx, [formatString]  ; Format string
-    lea     rdx, [buffer]        ; Buffer address
-    call    printf
+        ;get value from keyboard
+        mov rcx, rax                        ;place the handle for operation
+        xor rdx, rdx
+        mov rdx, buffer               ;set name to receive input from keyboard
+        mov r8, 255                           ;max number of characters to read
+        mov r9, chars                       ;stores the number of characters actually read
+
+        mov rax, qword 0                    ;fifth argument
+        mov qword [rsp+0x20], rax
+
+        call ReadConsoleA
+        movzx r12, byte[buffer]
+        add rsp, 40
+
+    lea rcx, [format]
+    lea rdx, [buffer]
+    xor rax, rax
+    call printf
 
     ; Exit process
-    xor     rax, rax
-    xor     rcx, rcx
-    xor     rdx, rdx
+    xor     rdi, rdi               ; Exit code 0
     call    ExitProcess
 
     ; Epilogue
