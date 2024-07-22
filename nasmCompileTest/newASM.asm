@@ -1,70 +1,49 @@
 bits 64
 default rel
+
 section .bss
-nums resq 1
-myStr resb 256
-section .Data
-formatNum db "%d",0
-formatString db "%s",0
- msg0 db "Hello, World from my own compiler!", 0xd, 0xa, 0
-hello db "boss", 0xd, 0xa, 0
-drag db "nono", 0xd, 0xa, 0
-boner dq 8
+buffer resb 256  ; Buffer for input
+
+section .data
+formatString db "%s", 0  ; Format string for printf
+
 section .text
 global main
 extern ExitProcess
-extern scanf
 extern printf
+extern GetStdHandle
+extern ReadConsole
 
 main:
-    ; shadow space for windowss
+    ; Prologue
     push    rbp
     mov     rbp, rsp
     sub     rsp, 32
-xor rax, rax
-lea rcx, [formatNum]
-mov rdx, 8
-call printf
 
+    ; Get console input handle
+    mov     rdi, -10         ; STD_INPUT_HANDLE
+    call    GetStdHandle
+    mov     rbx, rax         ; Store handle in RBX
 
-xor rax, rax
-lea rcx, [formatString]
-mov rdx, msg0
-call printf
+    ; Read input from console
+    lea     rcx, [buffer]    ; Buffer address
+    mov     rdx, 256         ; Buffer size
+    xor     r8, r8           ; Pointer to number of characters read (NULL)
+    mov     rsi, rbx         ; Console handle
+    call    ReadConsole
 
-xor rax, rax
-lea rcx, [formatNum]
-lea rdx, [nums]
-call scanf
+    ; Print the input string
+    xor     rax, rax
+    lea     rcx, [formatString]  ; Format string
+    lea     rdx, [buffer]        ; Buffer address
+    call    printf
 
-xor rax, rax
-lea rcx, [formatNum]
-mov rdx, [nums]
-call printf
-
-   xor rax, rax
-    xor rcx, rcx
-    xor rdx, rdx
-lea rcx, [formatString]
-lea rdx, [myStr]
-call scanf
-
-xor rax, rax
-lea rcx, [formatString]
-mov rdx, myStr
-call printf
-
-
-
-
-
-FINAL:
-   xor rax, rax
-    xor rcx, rcx
-    xor rdx, rdx
     ; Exit process
+    xor     rax, rax
+    xor     rcx, rcx
+    xor     rdx, rdx
     call    ExitProcess
- 
+
     ; Epilogue
     mov     rsp, rbp
     pop     rbp

@@ -12,6 +12,7 @@
     <None Remove="FibSequence.asm" />
     <None Remove="legacy_stdio_definitions.lib" />
     <None Remove="libucrt.lib" />
+    <None Remove="msvcprt.lib" />
     <None Remove="msvcrt.lib" />
     <None Remove="newASM.asm" />
   </ItemGroup>
@@ -27,6 +28,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="libucrt.lib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="msvcprt.lib">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="msvcrt.lib">
