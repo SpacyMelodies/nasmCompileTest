@@ -30,7 +30,7 @@ mov rdx, 8
 xor rax, rax
 call printf
 
-
+;; 07/22 update - need to enter string in the ReadConsoleA for it to save to buffer? not sure why.
 
 lea rcx, [formatString]
 mov rdx, msg0
