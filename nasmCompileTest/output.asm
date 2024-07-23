@@ -1,5 +1,3 @@
-
-
 bits 64
 default rel
 section .bss
@@ -12,7 +10,7 @@ formatString db "%s",0
  msg0 db "Hello, World from my own compiler!", 0xd, 0xa, 0
 hello db "boss", 0xd, 0xa, 0
 drag db "nono", 0xd, 0xa, 0
-myNumber dq 8
+number dq 8
 section .text
 global main
 extern ExitProcess
@@ -32,6 +30,8 @@ mov rdx, 8
 xor rax, rax
 call printf
 
+
+
 lea rcx, [formatString]
 mov rdx, msg0
 xor rax, rax
@@ -41,12 +41,15 @@ lea rcx, [formatNum]
 lea rdx, [nums]
 xor rax, rax
 call scanf
+xor rcx,rcx
+xor rdx, rdx
+
 
 sub rsp, 40
 mov rcx, -10 ;-10 = stdinputhandle
 call GetStdHandle
 mov rcx, rax
-xor rdx, rdx
+ xor rdx, rdx
 mov rdx, myStr
 mov r8, 255
 mov r9, chars
@@ -59,13 +62,18 @@ add rsp, 40
 xor rcx,rcx
 xor rdx, rdx
 
+lea rcx, [formatString]
+mov rdx, myStr
+xor rax, rax
+call printf
+
 lea rcx, [formatNum]
 mov rdx, [nums]
 xor rax, rax
 call printf
 
-lea rcx, [formatString]
-lea rdx, [myStr]
+lea rcx, [formatNum]
+mov rdx, [number]
 xor rax, rax
 call printf
 
@@ -81,5 +89,3 @@ FINAL:
     mov     rsp, rbp
     pop     rbp
     ret
-
-
