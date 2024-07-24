@@ -47,12 +47,16 @@ lea rcx, [formatNum]
 lea rdx, [nums]
 xor rax, rax
 call scanf
+
 xor rcx,rcx
 xor rdx, rdx
 
+pause ; seems to fix overlap error?   
 sub rsp, 40
 mov rcx, -10 ;-10 = stdinputhandle
 call GetStdHandle
+
+pause ; seems to fix overlap error?
 mov rcx, rax
 xor rdx, rdx
 mov rdx, myStr
@@ -63,7 +67,7 @@ mov qword [rsp+0x20], rax
 call ReadConsoleA
 add rsp, 40
 
-
+pause ; seems to fix overlap error?
 xor rcx,rcx
 xor rdx, rdx
 

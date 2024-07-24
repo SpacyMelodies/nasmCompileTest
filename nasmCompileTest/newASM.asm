@@ -7,7 +7,7 @@ chars resb 4
 section .Data
 formatNum db "%ld", 0
 formatString db "%s",0
- msg0 db "Hello, World from my own compiler!", 0xd, 0xa, 0
+msg0 db "Hello, World from my own compiler!", 0xd, 0xa, 0
 hello db "boss", 0xd, 0xa, 0
 drag db "nono", 0xd, 0xa, 0
 crlf db "",0xd,0xa, 0
@@ -50,12 +50,11 @@ xor rdx, rdx
 mov rdx, myStr
 mov r8, 511
 mov r9, chars
-mov rax, qword 0
-mov qword [rsp+0x20], rax
+mov rax, 0
+mov qword [rsp+0x20], 0
 call ReadConsoleA
 add rsp, 40
-xor rcx,rcx
-xor rdx, rdx
+
 
 mov rdx, [nums]
 add rdx, 82
