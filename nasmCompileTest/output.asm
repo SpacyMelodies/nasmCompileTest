@@ -7,9 +7,10 @@ chars resb 4
 section .Data
 formatNum db "%d", 0
 formatString db "%s",0
- msg0 db "Hello, World from my own compiler!", 0xd, 0xa, 0
-hello db "boss", 0xd, 0xa, 0
-drag db "nono", 0xd, 0xa, 0
+ msg0 db "Hello, World from my own compiler!", 0
+hello db "boss", 0
+drag db "nono",  0
+crlf db "",0xa, 0xd, 0
 number dq 8
 section .text
 global main
@@ -30,6 +31,11 @@ mov rdx, 8
 xor rax, rax
 call printf
 
+lea rcx, [formatString]
+mov rdx, msg0
+xor rax, rax
+call printf
+
 ;; 07/22 update - need to enter string in the ReadConsoleA for it to save to buffer? not sure why.
 
 lea rcx, [formatString]
@@ -44,20 +50,19 @@ call scanf
 xor rcx,rcx
 xor rdx, rdx
 
-
 sub rsp, 40
 mov rcx, -10 ;-10 = stdinputhandle
 call GetStdHandle
 mov rcx, rax
- xor rdx, rdx
+xor rdx, rdx
 mov rdx, myStr
 mov r8, 255
 mov r9, chars
 mov rax, qword 0
 mov qword [rsp+0x20], rax
 call ReadConsoleA
-movzx r12, byte[myStr]
 add rsp, 40
+
 
 xor rcx,rcx
 xor rdx, rdx

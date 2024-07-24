@@ -1,17 +1,16 @@
-
-
 bits 64
 default rel
 section .bss
 nums resq 1
-myStr resb 256
+myStr resb 512
 chars resb 4
 section .Data
-formatNum db "%d", 0
+formatNum db "%ld", 0
 formatString db "%s",0
  msg0 db "Hello, World from my own compiler!", 0xd, 0xa, 0
 hello db "boss", 0xd, 0xa, 0
 drag db "nono", 0xd, 0xa, 0
+crlf db "",0xd,0xa, 0
 myNumber dq 8
 section .text
 global main
@@ -21,6 +20,7 @@ extern printf
 extern GetStdHandle
 extern ReadConsoleA
 
+; This works but sometimes needs an extra \n ?
 main:
     ; shadow space for windowss
     push    rbp
@@ -48,16 +48,18 @@ call GetStdHandle
 mov rcx, rax
 xor rdx, rdx
 mov rdx, myStr
-mov r8, 255
+mov r8, 511
 mov r9, chars
 mov rax, qword 0
 mov qword [rsp+0x20], rax
 call ReadConsoleA
-movzx r12, byte[myStr]
 add rsp, 40
-
 xor rcx,rcx
 xor rdx, rdx
+
+mov rdx, [nums]
+add rdx, 82
+mov [nums], rdx
 
 lea rcx, [formatNum]
 mov rdx, [nums]
@@ -81,5 +83,3 @@ FINAL:
     mov     rsp, rbp
     pop     rbp
     ret
-
-
