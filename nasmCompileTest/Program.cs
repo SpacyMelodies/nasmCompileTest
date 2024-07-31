@@ -6,17 +6,18 @@ internal class Program
     {
         Process p = new Process();
         ProcessStartInfo processStartInfo = new ProcessStartInfo();
-        //processStartInfo.CreateNoWindow = true;
+        processStartInfo.CreateNoWindow = true;
         processStartInfo.FileName = "CMD.exe";
         processStartInfo.Arguments = "/C build.bat";
         p.StartInfo = processStartInfo;
         p.Start();
-        p.WaitForExit();
+    
 
-
+        //p.WaitForExit();
         Process z = new Process();
-        z.StartInfo.FileName = "brandnew.exe";
-       z.Start();
+        z.StartInfo.FileName = "brandnew3.exe";
+        z.Start();
+        z.Close();
 
         Console.ReadLine();
     }
